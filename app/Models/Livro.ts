@@ -1,10 +1,17 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Biblioteca from './Biblioteca'
 
 export default class Livro extends BaseModel {
   @column({ isPrimary: true })
   public id: Number
 
+  @column()
+  public id_biblioteca: Number
+
+  @belongsTo(() => Biblioteca)
+  public biblioteca: BelongsTo<typeof Biblioteca>
+  
   @column()
   public nome: String
 

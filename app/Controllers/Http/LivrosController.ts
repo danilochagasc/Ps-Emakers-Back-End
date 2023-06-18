@@ -9,6 +9,7 @@ export default class LivrosController {
             const data = {
                 nome: request.input("nome"),
                 quantidade: request.input("quantidade"),
+                id_biblioteca: request.input("id_biblioteca"),
                 estoque_disponivel: true,
             };
 

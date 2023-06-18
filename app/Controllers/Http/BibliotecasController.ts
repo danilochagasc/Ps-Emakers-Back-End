@@ -29,10 +29,4 @@ export default class BibliotecasController {
 
     }
 
-    public async index({}: HttpContextContract) {
-        const registros = await Biblioteca.query().select('nome');
-        return registros.map((registro) => registro.nome);
-    }
-      
-      
 }

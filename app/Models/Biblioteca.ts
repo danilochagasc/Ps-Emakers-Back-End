@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Livro from './Livro'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Biblioteca extends BaseModel {
   @column({ isPrimary: true })
@@ -8,12 +7,6 @@ export default class Biblioteca extends BaseModel {
 
   @column()
   public cnpj: String
-
-  @column()
-  public id_livro: Number
-
-  @belongsTo(() => Livro)
-  public livro: BelongsTo<typeof Livro>
 
   @column()
   public nome: String
