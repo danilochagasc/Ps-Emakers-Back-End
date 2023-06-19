@@ -34,8 +34,19 @@ export default class LivrosController {
         } catch(error){
             response.status(500).send("Erro ao excluir livro!");
         }
-        
 
+    }
+
+    public async index({params}:HttpContextContract){
+
+        const {id_buscado} = params;
+        
+        const livros = await Livro
+            .query()
+            .where('id_biblioteca', id_buscado)
+            .where('estoque_disponivel', true);
+
+        return livros;
     }
 
 }

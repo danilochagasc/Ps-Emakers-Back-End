@@ -25,8 +25,7 @@ export default class BibliotecasController {
         } catch(error){
             response.status(500).send("Erro ao excluir biblioteca!");
         }
-        
-
+    
     }
 
 }
