@@ -36,12 +36,14 @@ export default class PessoasController {
             if(emprestar == "emprestimo"){
                 const pessoa = await Pessoa.find(id);
                 if(pessoa?.emprestimo_disponivel == true){
-                    return{
-                        msg:"pode pegar",
-                    }
+
+                    //Ver se o livro que o cara pegou esta disponivel
+                    //Se estiver, reduzir em 1 o livro que ele pegou
+                    //Se apos a reducao, a quantidade daquele livro for 0, entao atualizar a disponibilidade dele para false
+                    //Atualizar a pessoa para que ela nao possa realizar mais emprestimos
                 }else{
                     return{
-                        msg: "nao pode pegar"
+                        msg: "voce possui um emprestimo pendente, devolva o seu livro antes de realizar outro emprestimo!"
                     }
                 }
                 
@@ -67,7 +69,9 @@ export default class PessoasController {
                         msg: "Voce nao tem livros para devolver",
                     }
                 }else{
-                    
+                    //Adicionar +1 unidade ao livro que o cara tem emprestado
+                    //Atualizar o bool de false pra true
+                    //verificar se o livro que o cara tinha estava sem disponibilidade, se sim, atualizar para true tambem
                 }
             }
 

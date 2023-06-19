@@ -26,8 +26,9 @@ Route.get('/', async () => {
 
 Route.group(() => {
   //rotas livros
-  Route.resource("/livros", "LivrosController").apiOnly().except(['index', 'show']);
+  Route.resource("/livros", "LivrosController").apiOnly().except(['index', 'show', 'update']);
   Route.get("/livros/:id_buscado", "LivrosController.index");
+  Route.put("/livros/:id_livro/:id_biblio_nova", "LivrosController.update");
 
   //rotas pessoas
   Route.put("/pessoas/:id/:emprestar/:id_livro", "PessoasController.update");

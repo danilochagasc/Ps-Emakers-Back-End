@@ -49,4 +49,28 @@ export default class LivrosController {
         return livros;
     }
 
+    public async update({params}: HttpContextContract){
+        const {id_livro, id_biblio_nova} = params;
+        const livros = await Livro.find(id_livro);
+        if(livros?.id_biblioteca == id_biblio_nova){
+            return{
+                msg: "O livro ja pertence a essa biblioteca",
+            }
+        }else{
+            if(livros){
+                livros.id_biblioteca = id_biblio_nova;
+                await livros.save();
+                return{
+                    msg: "Biblioteca Alterada com sucesso",
+                }
+            }else{
+                return{
+                    msg: "Livro inexistente ou nao encontrado",
+                } 
+            }
+            
+        }
+
+    }
+
 }
