@@ -31,8 +31,8 @@ Route.group(() => {
   Route.put("/livros/:id_livro/:id_biblio_nova", "LivrosController.update");
 
   //rotas pessoas
-  Route.put("/pessoas/:id/:emprestar/:id_livro", "PessoasController.update");
-  Route.put("/pessoas/:id/:devolver", "PessoasController.update");
+  Route.put("/pessoas/:id/:emprestar/:id_livro", "PessoasController.update_emprestimo");
+  Route.put("/pessoas/:id/:devolver", "PessoasController.update_devolucao");
   Route.resource("/pessoas", "PessoasController").apiOnly().except(['update']);
 
   //rotas bibliotecas

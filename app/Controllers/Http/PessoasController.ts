@@ -27,7 +27,7 @@ export default class PessoasController {
         }
     }
 
-    public async update({params,response}:HttpContextContract){
+    public async update_emprestimo({params,response}:HttpContextContract){
 
         const {id, emprestar, id_livro} = params;
          try{
@@ -51,12 +51,6 @@ export default class PessoasController {
                 }else{
                     return response.send("Voce ja realizou um emprestimo! Devolva seu livro para poder realizar outro.");
                 }
-                
-                    //Ver se o livro que o cara pegou esta disponivel
-                    //Se estiver, reduzir em 1 o livro que ele pegou
-                    //Se apos a reducao, a quantidade daquele livro for 0, entao atualizar a disponibilidade dele para false
-                    //Atualizar a pessoa para que ela nao possa realizar mais emprestimos
-
             }else{
                 return response.send("Parametro invalido");
             }
@@ -65,26 +59,35 @@ export default class PessoasController {
          }
     } 
 
-    /*public async update({params, response}:HttpContextContract){
+    public async update_devolucao({params, response}:HttpContextContract){
 
         const {id, devolver} = params;
         try{
             if(devolver == "devolver"){
                 const pessoa = await Pessoa.find(id)
-                if(pessoa?.emprestimo_disponivel == true){
-                    return{
-                        msg: "Voce nao tem livros para devolver",
-                    }
-                }else{
+                if(pessoa?.emprestimo_disponivel == false){
+                    await pessoa.load('livro')
+                    const livro = pessoa.livro;
+                    
+                    livro.quantidade = Number(livro.quantidade) + 1;
+                    pessoa.id_livro = null;
+                    pessoa.emprestimo_disponivel = true;
+                    livro.save();
+                    pessoa.save();
+                    return response.send("Livro devolvido com sucesso!");
                     //Adicionar +1 unidade ao livro que o cara tem emprestado
                     //Atualizar o bool de false pra true
                     //verificar se o livro que o cara tinha estava sem disponibilidade, se sim, atualizar para true tambem
+                    
+                }else{
+                    return response.send("Voce nao tem livros para devolver.");
+
                 }
             }
 
         }catch(error){
-            response.status(500).send("Erro ao realizar emprestimo")
+            response.status(500).send("Erro ao realizar devolucao")
         }
     }
-    */
+    
 }

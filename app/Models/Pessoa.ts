@@ -10,7 +10,7 @@ export default class Pessoa extends BaseModel {
   public cpf: String
 
   @column()
-  public id_livro: Number
+  public id_livro: Number | null;
   
   @belongsTo(() => Livro, {foreignKey: 'id_livro'})
   public livro: BelongsTo<typeof Livro>
