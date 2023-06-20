@@ -11,8 +11,8 @@ export default class Pessoa extends BaseModel {
 
   @column()
   public id_livro: Number
-
-  @belongsTo(() => Livro)
+  
+  @belongsTo(() => Livro, {foreignKey: 'id_livro'})
   public livro: BelongsTo<typeof Livro>
 
   @column()
