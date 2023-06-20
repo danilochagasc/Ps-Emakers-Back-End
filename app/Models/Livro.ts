@@ -18,9 +18,6 @@ export default class Livro extends BaseModel {
   @column()
   public quantidade: Number
 
-  @column()
-  public estoque_disponivel: Boolean
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

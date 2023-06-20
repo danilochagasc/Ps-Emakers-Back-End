@@ -17,7 +17,6 @@ export default class extends BaseSchema {
     
       table.string('nome').notNullable();
       table.integer('quantidade').notNullable();
-      table.boolean('estoque_disponivel').notNullable();
 
       table.timestamp('created_at', { useTz: true });
       table.timestamp('updated_at', { useTz: true });

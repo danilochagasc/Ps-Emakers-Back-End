@@ -10,14 +10,7 @@ export default class LivrosController {
                 nome: request.input("nome"),
                 quantidade: request.input("quantidade"),
                 id_biblioteca: request.input("id_biblioteca"),
-                estoque_disponivel: true,
             };
-
-            if (data.quantidade >=1){
-                data.estoque_disponivel = true
-            }else{
-                data.estoque_disponivel = false
-            }
             
             const livro = await Livro.create({...data});
             return livro;
@@ -44,29 +37,23 @@ export default class LivrosController {
         const livros = await Livro
             .query()
             .where('id_biblioteca', id_buscado)
-            .where('estoque_disponivel', true);
+            .where('quantidade','>',0);
 
         return livros;
     }
 
-    public async update({params}: HttpContextContract){
+    public async update({params, response}: HttpContextContract){
         const {id_livro, id_biblio_nova} = params;
         const livros = await Livro.find(id_livro);
         if(livros?.id_biblioteca == id_biblio_nova){
-            return{
-                msg: "O livro ja pertence a essa biblioteca",
-            }
+            return response.send("O livro ja pertence a essa biblioteca");
         }else{
             if(livros){
                 livros.id_biblioteca = id_biblio_nova;
                 await livros.save();
-                return{
-                    msg: "Biblioteca Alterada com sucesso",
-                }
+                return response.send("Biblioteca alterada com sucesso");
             }else{
-                return{
-                    msg: "Livro inexistente ou nao encontrado",
-                } 
+                return response.send("Livro inexistente ou nao encontrado");
             }
             
         }
